@@ -22,8 +22,8 @@ Before running this project, make sure you have the following tools installed:
    Clone this project to your local machine:
 
    ```bash
-   git clone https://github.com/flaviolhsss/swaychat-react-native-chat-app.git
-   cd swaychat-react-native-chat-app
+   git clone https://github.com/flaviolhsss/react-native-chat-app.git
+   cd react-native-chat-app
    ```
    Now, the project can be opened with your IDE of choice (Visual Studio Code was used for this project).
 
