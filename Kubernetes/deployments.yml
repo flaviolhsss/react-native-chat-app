@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apirest-depl
+  labels:
+    app: apirest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apirest
+  template:
+    metadata:
+      labels:
+        app: apirest
+    spec:
+      containers:
+      - name: apirest
+        image: flaviolhss/apirest:latest
+        ports:
+        - containerPort: 3000

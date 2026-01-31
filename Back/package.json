@@ -1,0 +1,23 @@
+{
+  "name": "swaychat",
+  "version": "1.0.0",
+  "description": "Chat group",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Flavio",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.0",
+    "mongoose-unique-validator": "^4.0.1",
+    "node-cron": "^3.0.3",
+    "node-schedule": "^2.1.1",
+    "swaychat": "file:",
+    "ws": "^8.18.1"
+  }
+}

@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+
+const messageSchema = mongoose.Schema({
+  userId: { type: String, required: true},
+  userName: { type: String, required: true},
+  userAvatar: { type: Number, required: true},
+  contenu: { type: String, required: true},
+  dateSended: { type: Date, required: true}
+});
+
+module.exports = mongoose.model('Message', messageSchema);

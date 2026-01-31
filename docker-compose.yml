@@ -1,0 +1,64 @@
+version: '3.9'
+
+name: swaychat
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: swaychat-mongodb
+    hostname: swaychat-mongodb
+    volumes:
+      - ./mongodb/initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb-data:/data/db/
+      - mongodb-log:/var/log/mongodb/
+    env_file:
+      - Back/.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "27018:27017"
+    networks:
+      - swaychat_network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: swaychat-mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: 'mongodb'
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+    ports:
+      - 8085:8081
+    networks:
+      - swaychat_network
+    depends_on:
+      - mongodb
+    
+  server-api:
+    build:
+      context: ./Back
+    image: server-api:latest
+    container_name: server-api
+    hostname: server-api
+    ports:
+      - "3000:3000"
+    networks:
+      - swaychat_network
+
+volumes:
+  mongodb-data:
+    driver: local
+    name: swaychat-mongo-data
+  mongodb-log:
+    driver: local
+    name: swaychat-mongo-log
+
+networks:
+  swaychat_network:
+    driver: bridge
+    name: swaychat-network
